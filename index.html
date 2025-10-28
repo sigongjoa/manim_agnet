@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Trig Visualization</title>
+    <style>
+        body { margin: 0; font-family: sans-serif; text-align: center; background-color: #111; color: #eee; }
+        canvas { display: block; }
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        input[type="range"] {
+            width: 50%;
+        }
+        label {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <div id="controls">
+        <label for="angle_slider">θ = 0.00</label>
+        <br>
+        <input type="range" id="angle_slider" min="0" max="360" value="0" step="1">
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
