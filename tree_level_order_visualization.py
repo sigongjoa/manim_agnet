@@ -79,16 +79,26 @@ class BinaryTreeLevelOrderVisualization(VoiceoverScene):
 
         # 순회 결과
         with self.voiceover(text="BFS 방식으로 순회하면 각 레벨별로 노드들을 처리합니다."):
+            # 트리 전체 제거
+            self.play(FadeOut(root_circle), FadeOut(root_label),
+                     FadeOut(left_circle), FadeOut(right_circle),
+                     FadeOut(left_label), FadeOut(right_label),
+                     FadeOut(line_left), FadeOut(line_right),
+                     FadeOut(left_grand), FadeOut(right_grand),
+                     FadeOut(left_grand_label), FadeOut(right_grand_label),
+                     FadeOut(line_left_grand), FadeOut(line_right_grand))
+
             queue_text = Text("Queue 기반 순회", font_size=24, font="NanumGothic").move_to(DOWN * 1.5)
             self.play(Write(queue_text))
             self.wait(0.5)
 
         with self.voiceover(text="최종 결과는 레벨별 노드들의 값입니다: 3, 그 다음 9와 20, 마지막으로 15와 7입니다."):
             result = Text("결과: [[3], [9, 20], [15, 7]]", font_size=28, font="NanumGothic", color=GREEN).move_to(DOWN * 2.5)
-            self.play(Write(result))
+            self.play(Transform(queue_text, result))
             self.wait(2)
 
         with self.voiceover(text="시청해주셔서 감사합니다!"):
+            self.play(FadeOut(result))
             self.wait(1)
 
 

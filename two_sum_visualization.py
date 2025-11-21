@@ -51,6 +51,7 @@ class TwoSumVisualization(VoiceoverScene):
 
         # HashMap 초기화
         with self.voiceover(text="HashMap을 사용하여 각 수와 그 인덱스를 저장합니다."):
+            self.play(FadeOut(problem_desc))  # 문제 설명 제거
             hashmap_title = Text("HashMap", font_size=28, font="NanumGothic").move_to(DOWN * 1.5)
             hashmap_content = Text("{}", font_size=24, font="NanumGothic").move_to(DOWN * 2.2)
             self.play(Write(hashmap_title), Write(hashmap_content))
@@ -72,6 +73,9 @@ class TwoSumVisualization(VoiceoverScene):
             self.play(boxes[1].animate.set_color(YELLOW))
             self.wait(0.5)
 
+            # 배열과 HashMap 제거
+            self.play(FadeOut(array_group), FadeOut(hashmap_title), FadeOut(hashmap_content))
+
             # 답 찾음
             result_box = Text("2 + 7 = 9 ✓", font_size=32, font="NanumGothic", color=GREEN).move_to(ORIGIN)
             indices_text = Text("인덱스: [0, 1]", font_size=28, font="NanumGothic", color=GREEN).move_to(DOWN * 0.8)
@@ -81,7 +85,8 @@ class TwoSumVisualization(VoiceoverScene):
             self.wait(2)
 
         with self.voiceover(text="HashMap을 사용하면 O(n) 시간에 답을 찾을 수 있습니다. 시청해주셔서 감사합니다!"):
-            self.wait(2)
+            self.play(FadeOut(result_box), FadeOut(indices_text))
+            self.wait(1)
 
 
 class TwoSumVisualizationExtended(VoiceoverScene):

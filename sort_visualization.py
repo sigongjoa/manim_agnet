@@ -34,6 +34,7 @@ class SortVisualization(VoiceoverScene):
             self.wait(0.5)
 
         # 알고리즘 설명
+        algo_text = None
         with self.voiceover(text="버블 정렬은 인접한 두 원소를 비교하여 큰 원소를 오른쪽으로 이동시키는 알고리즘입니다."):
             algo_text = Text("인접한 원소 비교 → 교환 → 반복", font_size=24, font="NanumGothic", color=YELLOW)
             algo_text.move_to(UP * 1.5)
@@ -82,6 +83,9 @@ class SortVisualization(VoiceoverScene):
 
         # 빠른 진행을 위해 나머지 과정 요약
         with self.voiceover(text="같은 방식으로 계속 진행하면 배열이 정렬됩니다."):
+            # 알고리즘 설명 제거
+            self.play(FadeOut(algo_text))
+
             # 각 Pass마다 한 번씩
             remaining_steps = [
                 ("두 번째 패스", [0, 1, 2, 3]),  # 8 정렬됨
@@ -98,15 +102,19 @@ class SortVisualization(VoiceoverScene):
 
         # 최종 정렬 결과
         with self.voiceover(text="모든 원소가 정렬되었습니다. 최종 결과는 [1, 2, 5, 8, 9]입니다."):
+            # 배열 제거
+            self.play(FadeOut(array_group))
+
             for i in range(5):
-                self.play(boxes[i].animate.set_color(GREEN))
+                self.play(boxes[i].animate.set_color(GREEN), run_time=0.1)
 
             result_text = Text("정렬 완료: [1, 2, 5, 8, 9]", font_size=32, font="NanumGothic", color=GREEN)
-            result_text.move_to(DOWN * 2)
+            result_text.move_to(ORIGIN)
             self.play(Write(result_text))
             self.wait(2)
 
         with self.voiceover(text="시청해주셔서 감사합니다!"):
+            self.play(FadeOut(result_text))
             self.wait(1)
 
     def _create_array_visual(self, nums, y_pos):

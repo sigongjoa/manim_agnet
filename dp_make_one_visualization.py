@@ -25,6 +25,7 @@ class DPMakeOneVisualization(VoiceoverScene):
         self.play(FadeOut(title), FadeOut(subtitle))
 
         # 문제 설명
+        ops_group = VGroup()
         with self.voiceover(text="세 가지 연산이 있습니다. 첫째, n을 3으로 나누기. 둘째, n을 2로 나누기. 셋째, n에서 1을 빼기. 단, n은 각 연산을 수행할 수 있을 때만 나누어집니다."):
             ops = [
                 Text("연산 1: n ÷ 3 (n이 3의 배수일 때)", font_size=24, font="NanumGothic"),
@@ -35,6 +36,7 @@ class DPMakeOneVisualization(VoiceoverScene):
             for i, op in enumerate(ops):
                 op.move_to(UP * (2 - i * 0.7))
                 self.play(Write(op))
+                ops_group.add(op)
                 self.wait(0.3)
 
             self.wait(0.5)
@@ -42,6 +44,8 @@ class DPMakeOneVisualization(VoiceoverScene):
         # DP 배열 생성 (n=10 예제)
         n = 10
         with self.voiceover(text="N이 10인 경우를 예시로 살펴봅시다. DP 배열을 만들어 각 수에서의 최소 연산 횟수를 저장합니다."):
+            self.play(FadeOut(ops_group))  # 연산 설명 제거
+
             # DP 배열 시각화
             dp_boxes = VGroup()
             for i in range(1, n + 1):
@@ -83,6 +87,9 @@ class DPMakeOneVisualization(VoiceoverScene):
 
         # 10에 도달하는 경로 시각화
         with self.voiceover(text="계속 계산하면 dp[10]은 3이 됩니다. 경로를 보면 10에서 2로 나누어 5가 되고, 5에서 1을 빼 4가 되고, 4를 2로 나누어 2가 되고, 2를 2로 나누어 1이 됩니다."):
+            # DP 배열 제거
+            self.play(FadeOut(dp_boxes), FadeOut(value_text_3))
+
             path = Text("경로: 10 → 5 → 4 → 2 → 1", font_size=26, font="NanumGothic", color=YELLOW)
             path.move_to(ORIGIN)
             self.play(Write(path))
@@ -94,7 +101,8 @@ class DPMakeOneVisualization(VoiceoverScene):
             self.wait(1)
 
         with self.voiceover(text="이처럼 동적계획법을 사용하면 최소 연산 횟수를 효율적으로 구할 수 있습니다. 시청해주셔서 감사합니다!"):
-            self.wait(2)
+            self.play(FadeOut(path), FadeOut(ops_count))
+            self.wait(1)
 
 
 class DPMakeOneTreeVisualization(VoiceoverScene):
