@@ -17,13 +17,17 @@ def render_scene(scene_file: str, scene_class: str, quality: str = "medium_quali
     Args:
         scene_file: Python 파일명 (확장자 제외)
         scene_class: 렌더링할 Scene 클래스명
-        quality: 렌더링 품질 (low_quality, medium_quality, high_quality)
+        quality: 렌더링 품질 (l=low, m=medium, h=high, p=4k, k=8k)
     """
+    # Manim Community v0.19.0+ 포맷
+    quality_code = "l" if quality == "low_quality" else "m" if quality == "medium_quality" else "h"
+
     cmd = [
         "manim",
+        "render",
         f"{scene_file}.py",
         scene_class,
-        f"-{quality[0]}",  # l, m, h
+        "-q", quality_code,
     ]
 
     print(f"\n{'='*60}")
